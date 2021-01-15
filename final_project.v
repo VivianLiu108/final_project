@@ -612,7 +612,7 @@ always @(sound_type) begin
 			sound=~sound;
 			sound=~sound; end
 		//gameover
-		3: sound=0;
+		3: sound=~sound;
 	endcase	
 end
 
