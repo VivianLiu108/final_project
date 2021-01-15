@@ -1,5 +1,5 @@
 module final_project(
-input clk, start, s1,
+input clk, start,
 output reg [0:7] OUT_R, OUT_G, OUT_B,
 output reg [3:0] COMM,
 output reg [1:16] time_out, 
@@ -66,7 +66,7 @@ end
 always @(key_num,is_end) begin
 	if(is_end)
 		begin sound_type<=3; score <= 0; end
-	/*else if(key_num==0 && ((graph_num[(time_count/2-3)%4]==3 && position[(time_count/2-3)%4]==1) || (graph_num[(time_count/2-3)%4]==4 && position[(time_count/2-3)%4]==3) || (graph_num[(time_count/2-3)%4]==5 && position[(time_count/2-3)%4]==3) || (graph_num[(time_count/2-3)%4]==6 && position[(time_count/2-3)%4]==1)))
+	else if(key_num==0 && ((graph_num[(time_count/2-3)%4]==3 && position[(time_count/2-3)%4]==1) || (graph_num[(time_count/2-3)%4]==4 && position[(time_count/2-3)%4]==3) || (graph_num[(time_count/2-3)%4]==5 && position[(time_count/2-3)%4]==3) || (graph_num[(time_count/2-3)%4]==6 && position[(time_count/2-3)%4]==1)))
 		begin sound_type<=1; score <= score + 1'd1; end
 	else if(key_num==1 && ((graph_num[(time_count/2-3)%4]==0 && position[(time_count/2-3)%4]==3) || (graph_num[(time_count/2-3)%4]==1 && position[(time_count/2-3)%4]==2) || (graph_num[(time_count/2-3)%4]==2 && position[(time_count/2-3)%4]==1) || (graph_num[(time_count/2-3)%4]==7 && position[(time_count/2-3)%4]==0)))
 		begin sound_type<=1; score <= score + 1'd1; end
@@ -81,11 +81,9 @@ always @(key_num,is_end) begin
 	else if(key_num==6 && ((graph_num[(time_count/2-3)%4]==0 && position[(time_count/2-3)%4]==2) || (graph_num[(time_count/2-3)%4]==3 && position[(time_count/2-3)%4]==0) || (graph_num[(time_count/2-3)%4]==4 && position[(time_count/2-3)%4]==0) || (graph_num[(time_count/2-3)%4]==5 && position[(time_count/2-3)%4]==2) || (graph_num[(time_count/2-3)%4]==8 && position[(time_count/2-3)%4]==0)))
 		begin sound_type<=1; score <= score + 1'd1; end
 	else if(key_num==7 && ((graph_num[(time_count/2-3)%4]==2 && position[(time_count/2-3)%4]==0) || (graph_num[(time_count/2-3)%4]==6 && position[(time_count/2-3)%4]==2)))
-		begin sound_type<=1; score <= score + 1'd1; end*/
-	else if(s1==1 && ((graph_num[(time_count/2)%4]==0 && position[(time_count/2)%4]==3) || (graph_num[(time_count/2)%4]==1 && position[(time_count/2)%4]==2) || (graph_num[(time_count/2)%4]==2 && position[(time_count/2)%4]==1) || (graph_num[(time_count/2)%4]==7 && position[(time_count/2)%4]==0)))
-		sound_type<=1;
-	/*else
-		begin sound_type<=1; score <= score + 1'd1; end*/
+		begin sound_type<=1; score <= score + 1'd1; end
+	else
+		begin sound_type<=1; score <= score + 1'd1; end
 end
 
 endmodule
@@ -602,11 +600,11 @@ input sound_type,
 output reg sound
 );
 always @(sound_type) begin
-	sound = 1'b0;
+	//sound = 1'b0;
 	case(sound_type)
 		//right
-		1: begin sound=1;
-			//sound=~sound; 
+		1: begin sound=~sound;
+			sound=~sound; 
 			end
 		//wrong
 		2: begin sound=~sound;
@@ -625,7 +623,7 @@ input [0:1] row, column,
 output [0:2] key_num
 );
 always@(*) begin
-	/*case(row)
+	case(row)
 		4'b1110:begin
 			case(column)
 				4'b1110:
@@ -653,8 +651,8 @@ always@(*) begin
 				4'b1011:
 					key_num<=7;//RD
 			endcase
-			end*/
-	//endcase
+			end
+	endcase
 	end
 endmodule
 
